@@ -1,63 +1,45 @@
-def main():
+file_subject = open("WorldSeriesWinners.txt",'r')
+
 #variables
-    teams_dict = {}
-    years_dict = {}
+winner = []
+wincount={}
+year_list = []
+win_years= {}
 
-    file_object = open("WorldSeriesWinners.txt", "r")
-    line = file_object.readline().strip("\n")
+for record in file_subject:
+    record = record.rstrip('\n')
+    winner.append(record)
 
-    #User Input
-    year = int(input('Input Year in the range of 1903-2008: '))
+#finding count
+for record in winner:
+    counter = winner.count(record)
+    wincount[record]= counter
 
-    for years in range(1903,2008):
-        #They dont play in these years
-        if year == 1904 or year == 1994:
-            print("World Series were not played.")
-            break
-        elif year < 1904 or year >=2008:
-            print("World Series were not/have not been played.")
-            break
-        else:
-            winner = teams_dict[year]
-            wins = years_dict[winner]
-            print(wins)
+for key in list(wincount.keys()):
+    print(key, ": ",wincount[key], sep = '')
 
-            # teams_dict[year] = line
-            # line = file_object.readline().strip("\n")
-            # print(teams_dict)
-            
+for record in range (1903,2009):
+    if record == 1904:
+        continue
+    elif record == 1994:
+        continue
+    else:
+        year_list.append(record)
 
-
-
-
-
-    # if year == 1903 or == 2008:
-    #     winner = years_dict[year]
-    #     wins = teams_dict[winner]
-    #     print(winner)
-    #     print(wins)
+for key in year_list:
+    for value in winner:
+        win_years[key] = value
+        winner.remove(value)
+        break  
 
 
-    # count = 0
+#user input
+year = int(input('Enter year from 1903-2008: '))
+if year == 1904 or year == 1994:
+    print("The world series did not play in the ", year)
+elif year < 1903 or year > 2008:
+    print("The World Series did not happen at this time.")
+elif year in win_years:
+    print(win_years[year])
 
-
-
-
-    # for year in range(1903,2008):
-    #     teams_dict[year] = line
-    #     line = file_object.readline().strip('\n')
-    #     count += 1
-    #     #print(line, count)
-
-    # if line != teams_dict:
-    #     count += 1
-    #     teams_dict[line] = count
-    # else:
-    #     count = 0
-    # print(teams_dict)
-
-
-
-
-
-main()
+file_subject.close()
